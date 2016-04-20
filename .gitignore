@@ -1,8 +1,9 @@
 .vagrant/*
-resources/mesos-0.21.1.tar.gz
-resources/zookeeper-3.4.6.tar.gz
-resources/etcd-v2.0.12-linux-amd64.tar.gz
-resources/jdk-7u75-linux-x64.tar.gz
-resources/go1.4.2.linux-amd64.tar.gz
+resources/apache-ant-1.9.7-bin.zip
+resources/apache-maven-3.3.9-bin.zip
+resources/etcd-v2.3.1-linux-amd64.tar.gz
+resources/go1.6.linux-amd64.tar.gz
 resources/jdk-7u76-linux-x64.tar.gz
-resources/spark-1.4.0-bin-hadoop2.6.tgz
+resources/scala-2.11.8.tgz
+resources/spark-1.6.1-bin-hadoop2.6.tgz
+resources/zookeeper-3.4.8.tar.gz

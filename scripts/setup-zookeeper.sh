@@ -32,10 +32,13 @@ function installZookeeper {
 		installRemoteZookeeper
 	fi
 	ln -s /usr/local/$ZOOKEEPER_VERSION /usr/local/zookeeper
+	mkdir -p ${ZOOKEEPER_DATA_PATH} 
+	chown -R vagrant:vagrant ${ZOOKEEPER_DATA_PATH}
+	chown -R vagrant:vagrant /var/lib/zookeeper 
+	chown -R vagrant:vagrant /var/log/zookeeper
 }
 
-
 echo "setup zookeeper"
-#installZookeeper
-#setupZookeeper
+installZookeeper
+setupZookeeper
 setupEnvVars

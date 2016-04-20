@@ -12,12 +12,14 @@ function installSpark {
     if resourceExists $SPARK_ARCHIVE; then
 		echo "install spark from local file"
 	else
+		echo $SPARK_MIRROR_DOWNLOAD
         curl -o $FILE -O -L $SPARK_MIRROR_DOWNLOAD
 	fi
 	tar -xzf $FILE -C /usr/local
 	ln -s /usr/local/$SPARK_VERSION /usr/local/spark
+	chown -R vagrant:vagrant /usr/local/spark/
 }
 
-echo "setup spark"
+echo "Installing Spark"
 installSpark
 setupEnvVars

@@ -6,33 +6,31 @@ function installLocalJava {
 	tar -xzf $FILE -C /usr/local
 }
 
-function setupJava {
-	echo "setting up java"
-	ln -s /usr/local/jdk1.7.0_76 /usr/local/java
-	ln -s /usr/local/java/bin/java /usr/bin/java
-	ln -s /usr/local/java/bin/javac /usr/bin/javac
-	ln -s /usr/local/java/bin/jar /usr/bin/jar
-	ln -s /usr/local/java/bin/javah /usr/bin/javah
-}
+# function setupJava {
+# 	echo "setting up java"
+# 	ln -s /usr/local/jdk1.7.0_76 /usr/local/java
+# 	ln -s /usr/local/java/bin/java /usr/bin/java
+# 	ln -s /usr/local/java/bin/javac /usr/bin/javac
+# 	ln -s /usr/local/java/bin/jar /usr/bin/jar
+# 	ln -s /usr/local/java/bin/javah /usr/bin/javah
+# }
 
 function setupEnvVars {
 	echo "creating java environment variables"
-	echo export JAVA_HOME=/usr/local/java >> /etc/profile.d/java.sh
+	# JAVA_HOME=/usr/java/jdk1.8.0_65
+	echo export JAVA_HOME="/usr/lib/jvm/java-8-oracle" >> /etc/profile.d/java.sh
 	echo export PATH=\${JAVA_HOME}/bin:\${PATH} >> /etc/profile.d/java.sh
 	chmod +x /etc/profile.d/java.sh
 }
 
 function installJava {
-	if resourceExists $JAVA_ARCHIVE; then
-		echo "installing open jdk from local file"
-	else
-		wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/7u76-b13/jdk-7u76-linux-x64.tar.gz" -O /vagrant/resources/$JAVA_ARCHIVE
-	fi
-	
-	installLocalJava
+	# http://www.webupd8.org/2012/09/install-oracle-java-8-in-ubuntu-via-ppa.html
+	add-apt-repository ppa:webupd8team/java
+	apt-get -y update
+	apt-get -y install openjdk-7-jdk phantomjs
+	echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+	apt-get -y install oracle-java8-installer
 }
-
-#  How to install ant and maven by http://www.unixmen.com/install-apache-ant-maven-tomcat-centos-76-5/
 
 function installAnt {
 	echo "install Ant"
@@ -43,8 +41,8 @@ function installAnt {
 		curl -o $FILE -O -L $ANT_MIRROR_DOWNLOAD
 	fi
     unzip $FILE -d /usr/local
-    ln -s /usr/local/apache-ant-1.9.5 /usr/local/ant
-    ln -s /usr/local/ant/bin/ant /usr/bin/ant
+    ln -s /usr/local/apache-ant-${ANT_VERSION} /usr/local/ant
+    # ln -s /usr/local/ant/bin/ant /usr/bin/ant
 }
 
 function setupAntEnvVars {
@@ -65,7 +63,7 @@ function installMaven {
 		curl -o $FILE -O -L $MAVEN_MIRROR_DOWNLOAD
 	fi
     unzip $FILE -d /usr/local
-    ln -s /usr/local/apache-maven-3.2.5 /usr/local/maven
+    ln -s /usr/local/apache-maven-${MAVEN_VERSION} /usr/local/maven
     ln -s /usr/local/maven/bin/mvn /usr/bin/mvn
 }
 

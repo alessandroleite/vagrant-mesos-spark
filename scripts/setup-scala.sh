@@ -22,7 +22,7 @@ function installScala {
 	# install sbt http://www.scala-sbt.org/release/tutorial/Installing-sbt-on-Linux.html
 	echo "deb http://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
     apt-get update -y
-    apt-get install -y sbt
+    apt-get install -y sbt --force-yes
 }
 
 echo "setup scala"
